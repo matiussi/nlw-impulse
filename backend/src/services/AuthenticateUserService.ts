@@ -12,7 +12,7 @@ import { sign } from 'jsonwebtoken';
  */
 
 interface IAccessTokenResponse{
-   accesss_token: string
+   access_token: string
 }
 
 interface IUserResponse{
@@ -32,14 +32,14 @@ class AuthenticateUserService{
             code,
          },
          headers:{
-            "Accept": "application/json"
+            Accept: "application/json"
          }
       });
-
+      
       //Obtendo dados do usuário logado
       const response = await axios.get<IUserResponse>('https://api.github.com/user', {
          headers:{
-            authorization: `Bearer ${accessTokenResponse.accesss_token}`
+            Authorization: `Bearer ${accessTokenResponse.access_token}`
          }
       });
 
@@ -78,6 +78,7 @@ class AuthenticateUserService{
          expiresIn: "1d"
       }
       );
+
       return {token, user};
    }
 }
